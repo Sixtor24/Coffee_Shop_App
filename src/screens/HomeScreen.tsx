@@ -19,6 +19,7 @@ import {
 } from '../theme/theme';
 import {useStore} from '../store/store';
 import {Dimensions} from 'react-native';
+import HeaderBar from '../components/HeaderBar';
 
 const getCategoriesFromData = (data: any) => {
   let temp: any = {};
@@ -61,31 +62,19 @@ const HomeScreen = () => {
     getCoffeeList(categoryIndex.category, CoffeeList),
   );
 
-  const ListRef: any = useRef<FlatList>();
   const tabBarHeight = useBottomTabBarHeight();
-
-  const searchCoffee = (search: string) => {
-    if (search != '') {
-      ListRef?.current?.scrollToOffset({
-        animated: true,
-        offset: 0,
-      });
-      setCategoryIndex({index: 0, category: categories[0]});
-      setSortedCoffee([
-        ...CoffeeList.filter((item: any) =>
-          item.name.toLowerCase().includes(search.toLowerCase()),
-        ),
-      ]);
-    }
-  };
 
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor={COLORS.primaryBlackHex} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.ScrollViewFlex}
-      />
+        contentContainerStyle={styles.ScrollViewFlex}>
+        <HeaderBar title={'Home Screen'} />
+        <Text style={styles.ScreenTitle}>
+          Find the best{'\n'}coffee for you
+        </Text>
+      </ScrollView>
     </View>
   );
 };
